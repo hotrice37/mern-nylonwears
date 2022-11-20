@@ -132,7 +132,7 @@ const Navbar = () => {
                       id="cartAmount"
                       className={`cartAmount cartAmount position-absolute p-1`}
                     >
-                      {cart.cartItems.length}
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                     </div>
                   </Link>
                 </div>

@@ -41,13 +41,13 @@ const Card = () => {
     fetchData();
   }, []);
 
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const addToCartHandler = () => {
-    ctxDispatch({
-      type: 'CART_ADD_ITEM',
-      payload: { ...products, quantity: 1 },
-    });
-  };
+  // const { state, dispatch: ctxDispatch } = useContext(Store);
+  // const addToCartHandler = () => {
+  //   ctxDispatch({
+  //     type: 'CART_ADD_ITEM',
+  //     payload: { ...products, quantity: 1 },
+  //   });
+  // };
 
   const renderCard = (carddata) => {
     return (
@@ -56,10 +56,7 @@ const Card = () => {
           className={`card text-center align-items-center text-bg-dark pb-3`}
         >
           <div>
-            <Link
-              className="text-decoration-none"
-              to={`/product/${carddata.slug}`}
-            >
+            <a className="text-decoration-none" href={`/${carddata.slug}`}>
               <div
                 className={`container d-flex align-items-center justify-content-center`}
               >
@@ -69,9 +66,9 @@ const Card = () => {
                   alt={carddata.prodname}
                 />
               </div>
-            </Link>
+            </a>
             <div className="card-body">
-              <Link className="text-decoration-none" to="/productdetails">
+              <a className="text-decoration-none" href={`/${carddata.slug}`}>
                 <h6 className="card-title text-white">{carddata.prodname}</h6>
                 <p className="card-text">
                   <Rating
@@ -79,13 +76,13 @@ const Card = () => {
                     numReviews={carddata.numReviews}
                   />
                 </p>
-              </Link>
+              </a>
               {/* add to cart */}
               <button
                 className="btn btn-outline-light btn-sm"
-                onClick={() => {
-                  addToCartHandler();
-                }}
+                // onClick={() => {
+                //   addToCartHandler();
+                // }}
               >
                 Add to Cart
               </button>
