@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../components/css/productdetails.css';
 import LoadingBox from '../components/loadingbox';
 import MessageBox from '../components/messagebox';
@@ -23,6 +23,7 @@ const reducer = (state, action) => {
 };
 
 function Productdetails() {
+  const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
@@ -57,6 +58,7 @@ function Productdetails() {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity },
     });
+    navigate('/cart');
   };
 
   return loading ? (

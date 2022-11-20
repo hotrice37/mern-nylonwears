@@ -64,3 +64,7 @@
 .products .col:hover {
   transform: translateY(10px);
 }
+
+.img-thumbnail {
+  height: 80px;
+}
