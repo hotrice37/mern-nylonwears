@@ -1,17 +1,17 @@
 const data = {
   products: [
     {
-      _id: '1',
-      img: '../images/man1.png',
       prodname: 'Nope Not Today Hoodie',
-      price: 1150,
-      numReviews: 10,
-      rating: 3.5,
       slug: 'nope-not-today-hoodie',
+      img: '../images/man1.png',
+      category: 'Men',
+      desc: 'desc',
+      price: 1150,
       stock: 10,
+      rating: 3.5,
+      numReviews: 10,
     },
     {
-      _id: '2',
       img: '../images/women1.png',
       prodname: 'Stiched Ladies Kurti',
       price: 595,
@@ -19,9 +19,10 @@ const data = {
       rating: 2,
       slug: 'stitched-ladies-kurti',
       stock: 0,
+      desc: 'desc',
+      category: 'Women',
     },
     {
-      _id: '3',
       img: '../images/kid1.png',
       prodname: 'Baby Suit Unisex',
       price: 750,
@@ -29,9 +30,10 @@ const data = {
       rating: 3,
       slug: 'baby-suit-unisex',
       stock: 20,
+      desc: 'desc',
+      category: 'Kids',
     },
     {
-      _id: '4',
       img: '../images/boot.png',
       prodname: 'Nylon Boot Predator',
       price: 13500,
@@ -39,6 +41,8 @@ const data = {
       rating: 4.5,
       slug: 'nylon-boot-predator',
       stock: 20,
+      desc: 'desc',
+      category: 'Men',
     },
   ],
 };
