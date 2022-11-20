@@ -44,7 +44,7 @@ const CartPage = () => {
           ) : (
             <ul className="list-group">
               {cartItems.map((item) => (
-                <li class="list-group-item" key={item._id}>
+                <li className="list-group-item" key={item._id}>
                   <div className="row align-items-center">
                     <div className="col-md-4">
                       <img
@@ -60,7 +60,7 @@ const CartPage = () => {
                           updateCartHandler(item, item.quantity - 1)
                         }
                         type="button"
-                        class="btn btn-light"
+                        className="btn btn-light"
                         disabled={item.quantity === 1}
                       >
                         <i className="bi bi-dash-circle-fill" />
@@ -71,7 +71,7 @@ const CartPage = () => {
                           updateCartHandler(item, item.quantity + 1)
                         }
                         type="button"
-                        class="btn btn-light"
+                        className="btn btn-light"
                         disabled={item.quantity === item.stock}
                       >
                         <i className="bi bi-plus-circle-fill" />
@@ -82,7 +82,7 @@ const CartPage = () => {
                       <button
                         onClick={() => removeItemHandler(item)}
                         type="button"
-                        class="btn btn-light"
+                        className="btn btn-light"
                       >
                         <i className="bi bi-trash" />
                       </button>

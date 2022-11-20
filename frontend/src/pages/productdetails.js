@@ -72,20 +72,20 @@ function Productdetails() {
           <img className="img-large" src={product.img} alt={product.prodname} />
         </div>
         <div className="col-3">
-          <ul class="list-group list-group-flush rounded">
-            <li class="list-group-item bg-dark text-white">
+          <ul className="list-group list-group-flush rounded">
+            <li className="list-group-item bg-dark text-white">
               <Helmet>
                 <title>{product.prodname}</title>
               </Helmet>
               <h1>{product.prodname}</h1>
             </li>
-            <li class="list-group-item bg-dark">
+            <li className="list-group-item bg-dark">
               <Rating rating={product.rating} numReviews={product.numReviews} />
             </li>
-            <li class="list-group-item bg-dark text-white">
+            <li className="list-group-item bg-dark text-white">
               Price: Rs {product.price}
             </li>
-            <li class="list-group-item bg-dark text-white">
+            <li className="list-group-item bg-dark text-white">
               Description: <p>{product.desc}</p>
             </li>
           </ul>
@@ -93,33 +93,35 @@ function Productdetails() {
         <div className="col-3">
           <div className="card bg-dark">
             <div className="card-body">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item bg-dark text-white">
+              <ul className="list-group list-group-flush">
+                <li className="list-group-item bg-dark text-white">
                   <div className="row">
                     <div className="col">Price:</div>
                     <div className="col">Rs {product.price}</div>
                   </div>
                 </li>
-                <li class="list-group-item bg-dark text-white">
+                <li className="list-group-item bg-dark text-white">
                   <div className="row">
                     <div className="col">Status:</div>
                     <div className="col">
                       {product.stock > 0 ? (
-                        <span class="badge text-bg-success">In Stock</span>
+                        <span className="badge text-bg-success">In Stock</span>
                       ) : (
-                        <span class="badge text-bg-danger">Unavailable</span>
+                        <span className="badge text-bg-danger">
+                          Unavailable
+                        </span>
                       )}
                     </div>
                   </div>
                 </li>
 
                 {product.stock > 0 && (
-                  <li class="list-group-item bg-dark text-white">
+                  <li className="list-group-item bg-dark text-white">
                     <div className="d-grid">
                       <button
                         onClick={addToCartHandler}
                         type="button"
-                        class="orange btn text-white"
+                        className="orange btn text-white"
                       >
                         Add to Cart
                       </button>

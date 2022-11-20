@@ -91,12 +91,12 @@ const Card = () => {
                 href={`product/${carddata.slug}`}
               >
                 <h6 className="card-title text-white">{carddata.prodname}</h6>
-                <p className="card-text">
+                <span className="card-text">
                   <Rating
                     rating={carddata.rating}
                     numReviews={carddata.numReviews}
                   />
-                </p>
+                </span>
               </a>
               {/* add to cart */}
               Rs {carddata.price}

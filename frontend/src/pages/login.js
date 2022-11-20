@@ -60,7 +60,7 @@ function SignIn() {
             </div>
             <div className="txt_field">
               <input
-                class="text-white"
+                className="text-white"
                 type="password"
                 required
                 onChange={(e) => setPassword(e.target.value)}

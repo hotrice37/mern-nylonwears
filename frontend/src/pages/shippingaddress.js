@@ -41,35 +41,35 @@ function ShippingAddress() {
       <div className="container col-lg-5">
         <h1 className="my-3">Shipping Address</h1>
         <form onSubmit={submitHandler}>
-          <div class="mb-3" controlId="fullName">
-            <label for="fullName" class="form-label">
+          <div className="mb-3" controlId="fullName">
+            <label for="fullName" className="form-label">
               Full Name
             </label>
             <input
               value={fullName}
-              class="form-control"
+              className="form-control"
               onChange={(e) => setFullName(e.target.value)}
               required
             />
           </div>
-          <div class="mb-3" controlId="address">
-            <label for="address" class="form-label">
+          <div className="mb-3" controlId="address">
+            <label for="address" className="form-label">
               Address
             </label>
             <input
               value={address}
-              class="form-control"
+              className="form-control"
               onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
-          <div class="mb-3" controlId="city">
-            <label for="city" class="form-label">
+          <div className="mb-3" controlId="city">
+            <label for="city" className="form-label">
               City
             </label>
             <input
               value={city}
-              class="form-control"
+              className="form-control"
               onChange={(e) => setCity(e.target.value)}
               required
             />
@@ -77,7 +77,7 @@ function ShippingAddress() {
           <div className="mb-3">
             <button
               type="submit"
-              class="btn"
+              className="btn"
               style={{ backgroundColor: '#ff523b', color: 'white' }}
             >
               Continue
