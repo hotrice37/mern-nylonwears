@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useEffect, useReducer, useContext } from 'react';
-import { Link } from 'react-router-dom';
 import '../components/css/card.css';
 import axios from 'axios';
 import logger from 'use-reducer-logger';
@@ -41,6 +40,11 @@ const Card = () => {
     fetchData();
   }, []);
 
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const {
+    cart: { cartItems },
+  } = state;
+
   // const { state, dispatch: ctxDispatch } = useContext(Store);
   // const addToCartHandler = () => {
   //   ctxDispatch({
@@ -50,11 +54,22 @@ const Card = () => {
   // };
 
   const renderCard = (carddata) => {
+    const addToCartHandler = async (item) => {
+      const existItem = cartItems.find((x) => x._id === carddata._id);
+      const quantity = existItem ? existItem.quantity + 1 : 1;
+      const { data } = await axios.get(`/api/products/${item._id}`);
+      if (data.countInStock < quantity) {
+        window.alert('Sorry. Product is out of stock');
+        return;
+      }
+      ctxDispatch({
+        type: 'CART_ADD_ITEM',
+        payload: { ...item, quantity },
+      });
+    };
     return (
       <div className={`col-sm-6 col-md-4 col-lg-3 col`} key={carddata.slug}>
-        <div
-          className={`card text-center align-items-center text-bg-dark pb-3`}
-        >
+        <div className={`card text-center align-items-center text-bg-dark`}>
           <div>
             <a className="text-decoration-none" href={`/${carddata.slug}`}>
               <div
@@ -78,14 +93,7 @@ const Card = () => {
                 </p>
               </a>
               {/* add to cart */}
-              <button
-                className="btn btn-outline-light btn-sm"
-                // onClick={() => {
-                //   addToCartHandler();
-                // }}
-              >
-                Add to Cart
-              </button>
+              Rs {carddata.price}
               {/* <div className="buttons d-flex gap-3 justify-content-center align-items-center">
                       <i onclick="decrement(${id}), generateCartItems()" className={`${bi} btn py-0 px-1 text-white bi bi-dash-lg`} role="button"></i>
                         <div className="quantity text-white">${search.item}</div>
@@ -93,8 +101,26 @@ const Card = () => {
                     </div> */}
             </div>
           </div>
-          <div className={`cardfooter card-footer d-flex flex-column`}>
-            <div>Rs {carddata.price}</div>
+          <div className={`card-footer d-flex flex-column`}>
+            <div>
+              {carddata.stock === 0 ? (
+                <button
+                  className="btn btn-outline-light btn-sm cardfooter"
+                  disabled
+                >
+                  Out of Stock
+                </button>
+              ) : (
+                <button
+                  className="btn btn-outline-light btn-sm cardfooter"
+                  onClick={() => {
+                    addToCartHandler(carddata);
+                  }}
+                >
+                  Add to Cart
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

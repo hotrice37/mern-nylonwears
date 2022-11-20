@@ -18,7 +18,7 @@ const data = {
       numReviews: 5,
       rating: 2,
       slug: 'stitched-ladies-kurti',
-      stock: 20,
+      stock: 0,
     },
     {
       _id: '3',

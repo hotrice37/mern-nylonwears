@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './css/navbar.css';
 import { useContext } from 'react';
 import { Store } from '../store';
@@ -7,6 +7,9 @@ import { Store } from '../store';
 const Navbar = () => {
   const { state } = useContext(Store);
   const { cart } = state;
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
   return (
     // Navigation Bar Start
     <nav className={`navbar navbar bg-dark text-white`}>
@@ -169,15 +172,16 @@ const Navbar = () => {
                 <span></span>
                 <label>EMAIL ADDRESS</label>
               </div>
-              <div className={`txt_field`}>
+              <div className="txt_field">
                 <input type="password" required />
                 <span></span>
                 <label>PASSWORD</label>
               </div>
-              <div className={`pass`}>Forgot Password?</div>
-              <input type="submit" value="Login" />
-              <div className={`signup_link`}>
-                Don't have an account? <Link to="/">Sign up</Link>
+              <div className="pass text-end">Forgot Password?</div>
+              <input className="mt-4" type="submit" value="Login" />
+              <div className="signup_link mt-4">
+                Don't have an account?{' '}
+                <Link to={`/signup?redirect=${redirect}`}>Sign up</Link>
               </div>
             </form>
           </div>
