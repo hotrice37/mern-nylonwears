@@ -58,7 +58,7 @@ const Card = () => {
       const existItem = cartItems.find((x) => x._id === carddata._id);
       const quantity = existItem ? existItem.quantity + 1 : 1;
       const { data } = await axios.get(`/api/products/${item._id}`);
-      if (data.countInStock < quantity) {
+      if (data.stock < quantity) {
         window.alert('Sorry. Product is out of stock');
         return;
       }
@@ -71,7 +71,10 @@ const Card = () => {
       <div className={`col-sm-6 col-md-4 col-lg-3 col`} key={carddata.slug}>
         <div className={`card text-center align-items-center text-bg-dark`}>
           <div>
-            <a className="text-decoration-none" href={`/${carddata.slug}`}>
+            <a
+              className="text-decoration-none"
+              href={`product/${carddata.slug}`}
+            >
               <div
                 className={`container d-flex align-items-center justify-content-center`}
               >
@@ -83,7 +86,10 @@ const Card = () => {
               </div>
             </a>
             <div className="card-body">
-              <a className="text-decoration-none" href={`/${carddata.slug}`}>
+              <a
+                className="text-decoration-none"
+                href={`product/${carddata.slug}`}
+              >
                 <h6 className="card-title text-white">{carddata.prodname}</h6>
                 <p className="card-text">
                   <Rating

@@ -15,6 +15,7 @@ import Productdetails from './pages/productdetails';
 import NotFoundPage from './pages/404';
 import { StoreProvider } from './store';
 import SignIn from './pages/login';
+import './components/css/index.css';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="cart" element={<CartPage />} />
             <Route path="contactus" element={<ContactUs />} />
-            <Route path="/:slug" element={<Productdetails />}></Route>
+            <Route path="/product/:slug" element={<Productdetails />}></Route>
             <Route path="/signin" element={<SignIn />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
