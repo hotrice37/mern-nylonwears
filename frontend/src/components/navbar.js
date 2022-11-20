@@ -1,15 +1,18 @@
 import * as React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './css/navbar.css';
 import { useContext } from 'react';
 import { Store } from '../store';
 
 const Navbar = () => {
-  const { state } = useContext(Store);
-  const { cart } = state;
-  const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get('redirect');
-  const redirect = redirectInUrl ? redirectInUrl : '/';
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart, userInfo } = state;
+
+  const signoutHandler = () => {
+    ctxDispatch({ type: 'USER_SIGNOUT' });
+    localStorage.removeItem('userInfo');
+  };
+
   return (
     // Navigation Bar Start
     <nav className={`navbar navbar bg-dark text-white`}>
@@ -109,18 +112,54 @@ const Navbar = () => {
         </div>
         <div>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <div className="d-flex gap-4">
+            <div className="d-flex gap-4 navbar-expand">
               <div className="navbar-nav">
                 <div className="nav-item">
-                  <button
-                    className="btn nav-link text-dark bg-white py-1 px-2"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#login"
-                    aria-controls="loginscreen"
-                  >
-                    <i className="bi bi-person"></i>
-                  </button>
+                  {userInfo ? (
+                    <div className="nav-item dropdown">
+                      <span
+                        className="btn nav-link dropdown-toggle text-dark bg-white py-1 px-2"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        {userInfo.name}
+                        <i className="bi bi-person"></i>
+                      </span>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <Link className="dropdown-item" to="/profile">
+                            User Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link className="dropdown-item" to="/orderhistory">
+                            Order History
+                          </Link>
+                        </li>
+                        <li>
+                          <hr className="dropdown-divider" />
+                        </li>
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            to="#signout"
+                            onClick={signoutHandler}
+                          >
+                            Log Out
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  ) : (
+                    <Link
+                      to="/signin"
+                      className="btn nav-link text-dark bg-white py-1 px-2"
+                      type="button"
+                    >
+                      <i className="bi bi-person"></i>
+                    </Link>
+                  )}
                 </div>
               </div>
               <div className="navbar-nav">
@@ -146,47 +185,7 @@ const Navbar = () => {
       </div>
 
       {/* Login Start */}
-      <div
-        className="offcanvas offcanvas-end"
-        tabIndex="-1"
-        id="login"
-        aria-labelledby="loginscreen"
-      >
-        <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-            Login Screen
-          </h5>
-          <button
-            type="button"
-            className="btn-close"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div className="offcanvas-body">
-          <div className={`login_screen`}>
-            <h1 className="text-black">WEAR THE BEST CLOTHES</h1>
-            <form method="post">
-              <div className={`txt_field`}>
-                <input type="text" required />
-                <span></span>
-                <label>EMAIL ADDRESS</label>
-              </div>
-              <div className="txt_field">
-                <input type="password" required />
-                <span></span>
-                <label>PASSWORD</label>
-              </div>
-              <div className="pass text-end">Forgot Password?</div>
-              <input className="mt-4" type="submit" value="Login" />
-              <div className="signup_link mt-4">
-                Don't have an account?{' '}
-                <Link to={`/signup?redirect=${redirect}`}>Sign up</Link>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+
       {/* Login End */}
     </nav>
     // Navigation Bar End

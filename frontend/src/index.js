@@ -3,6 +3,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import '@popperjs/core/dist/umd/popper.min.js';
 import '@fontsource/poppins';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -13,6 +14,7 @@ import ContactUs from './pages/contactus';
 import Productdetails from './pages/productdetails';
 import NotFoundPage from './pages/404';
 import { StoreProvider } from './store';
+import SignIn from './pages/login';
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
             <Route path="cart" element={<CartPage />} />
             <Route path="contactus" element={<ContactUs />} />
             <Route path="/:slug" element={<Productdetails />}></Route>
+            <Route path="/signin" element={<SignIn />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
