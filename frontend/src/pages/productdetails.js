@@ -3,7 +3,10 @@ import { useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import '../components/css/productdetails.css';
+import LoadingBox from '../components/loadingbox';
+import MessageBox from '../components/messagebox';
 import Rating from '../components/rating';
+import getError from '../utils';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -33,16 +36,16 @@ function Productdetails() {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
     fetchData();
   }, [slug]);
 
   return loading ? (
-    <div>Loading...</div>
+    <LoadingBox />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="alert-danger">{error}</MessageBox>
   ) : (
     <div className="p-4 p-lg-5 p-details container">
       <div className="row">

@@ -119,7 +119,7 @@ const Card = () => {
         {loading ? (
           <LoadingBox />
         ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
+          <MessageBox variant="alert-danger">{error}</MessageBox>
         ) : (
           products.map(renderCard)
         )}

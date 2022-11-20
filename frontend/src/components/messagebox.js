@@ -1,7 +1,7 @@
-function MessageBox() {
+function MessageBox(props) {
   return (
-    <div class="alert alert-danger" role="alert">
-      A simple danger alert—check it out!
+    <div class={`alert ${props.variant || 'alert-info'}`} role="alert">
+      {props.children}
     </div>
   );
 }
