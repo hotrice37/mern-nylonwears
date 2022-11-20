@@ -1,106 +1,112 @@
-import * as React from 'react'
-import '../components/css/productdetails.css'
-import { Helmet } from "react-helmet"
-import { useReducer, useEffect } from "react"
-import axios from 'axios'
-import { useParams } from 'react-router'
-
+import axios from 'axios';
+import { useEffect, useReducer } from 'react';
+import { Helmet } from 'react-helmet';
+import { useParams } from 'react-router-dom';
+import '../components/css/productdetails.css';
+import Rating from '../components/rating';
 
 const reducer = (state, action) => {
-  switch(action.type){
+  switch (action.type) {
     case 'FETCH_REQUEST':
-      return {...state, loading: true};
+      return { ...state, loading: true };
     case 'FETCH_SUCCESS':
-      return {...state, loading: false, product: action.payload};
+      return { ...state, loading: false, product: action.payload };
     case 'FETCH_FAIL':
-      return {...state, loading: false, error: action.payload};
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
-}
+};
 
-const Productdetails = () => {
+function Productdetails() {
   const params = useParams();
-  const {slug}  = params;
-  
-
-  const [{loading, error, product}, dispatch] = useReducer(reducer, {
-    loading: true, error: '', product: []
-  })
-  useEffect(()=>{
-    const fetchData=async()=>{
-      dispatch({type: 'FETCH_REQUEST'})
-      try{
-        const result=await axios.get(`/product/all/slug/${slug}`);
-        dispatch({type: 'FETCH_SUCCESS', payload: result.data})
+  const { slug } = params;
+  const [{ loading, error, product }, dispatch] = useReducer(reducer, {
+    loading: true,
+    error: '',
+    product: [],
+  });
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch({ type: 'FETCH_REQUEST' });
+      try {
+        const result = await axios.get(`/api/products/slug/${slug}`);
+        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
+      } catch (err) {
+        dispatch({ type: 'FETCH_FAIL', payload: err.message });
       }
-      catch(err){
-        dispatch({type: 'FETCH_FAIL', payload: err.message})
-      }
-    }
+    };
     fetchData();
-  },[slug])
-  return (
-    <>
-      <Helmet>
-        <title>Product Details</title>
-      </Helmet>
-      {loading? (
-        <div>Loading...</div>
-        ) :error? (
-          <div>{error}</div>
-         ) : (
-        <div className="container-fluid pt-4 products px-5">
-          <div className={`small-container singleproduct`}>
-            <div className="row">
-              <div className={`col-4 col`}>
-                <img src={product.img} alt={product.prodname} width="100%" id="ProductImg" />
+  }, [slug]);
 
-                
-              </div>
-              <div className={`col-4 col`}>
-                <p className="text-white">Home / {product.prodname} </p>
-                <h2 className="text-white">{product.prodname}</h2>
-                <h4 className="text-white">Rs {product.price}</h4>
-                
-                <div className={`col-4 col`}>
-                  <select>
-                    <option>Select Size</option>
-                    <option>Large</option>
-                    <option>Medium</option>
-                    <option>XL</option>
-                    <option>XXL</option>
-                  </select>
-                </div>
-                <div className="row align-items-center">
-                  <div className={`col-4 col`}>
-                    <input type="number" value="1" />
+  return loading ? (
+    <div>Loading...</div>
+  ) : error ? (
+    <div>{error}</div>
+  ) : (
+    <div className="p-4 p-lg-5 p-details container">
+      <div className="row">
+        <div className="col-6 text-center">
+          <img className="img-large" src={product.img} alt={product.prodname} />
+        </div>
+        <div className="col-3">
+          <ul class="list-group list-group-flush rounded">
+            <li class="list-group-item bg-dark text-white">
+              <Helmet>
+                <title>{product.prodname}</title>
+              </Helmet>
+              <h1>{product.prodname}</h1>
+            </li>
+            <li class="list-group-item bg-dark">
+              <Rating rating={product.rating} numReviews={product.numReviews} />
+            </li>
+            <li class="list-group-item bg-dark text-white">
+              Price: Rs {product.price}
+            </li>
+            <li class="list-group-item bg-dark text-white">
+              Description: <p>{product.desc}</p>
+            </li>
+          </ul>
+        </div>
+        <div className="col-3">
+          <div className="card bg-dark">
+            <div className="card-body">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item bg-dark text-white">
+                  <div className="row">
+                    <div className="col">Price:</div>
+                    <div className="col">Rs {product.price}</div>
                   </div>
-                  <div className={`col-4 col`}>
-                    <a className={`btn text-white`}>Add to Cart</a>
+                </li>
+                <li class="list-group-item bg-dark text-white">
+                  <div className="row">
+                    <div className="col">Status:</div>
+                    <div className="col">
+                      {product.stock > 0 ? (
+                        <span class="badge text-bg-success">In Stock</span>
+                      ) : (
+                        <span class="badge text-bg-danger">Unavailable</span>
+                      )}
+                    </div>
                   </div>
-                </div>
-                
-                <h3 className="text-white">Product Details <i className={`bi bi-indent`}></i></h3>
-                <br />
-                <p className="text-white">{product.desc}</p>
-                
-              </div>
-            </div>
-          </div>
-          {/* title */}
+                </li>
 
-          <div className="small-container">
-            <div className="row">
-            <h2 className="text-white">Related Products</h2>
+                {product.stock > 0 && (
+                  <li class="list-group-item bg-dark text-white">
+                    <div className="d-grid">
+                      <button type="button" class="orange btn text-white">
+                        Add to Cart
+                      </button>
+                    </div>
+                  </li>
+                )}
+              </ul>
             </div>
           </div>
         </div>
-         )}
-    </>
-  )
+      </div>
+    </div>
+  );
 }
 
-export const Head = () => <title>Product</title>
-
-export default Productdetails
+export default Productdetails;

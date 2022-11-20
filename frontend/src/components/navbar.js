@@ -177,7 +177,7 @@ const Navbar = () => {
               <div className={`pass`}>Forgot Password?</div>
               <input type="submit" value="Login" />
               <div className={`signup_link`}>
-                Don't have an account? <a href="#">Sign up</a>
+                Don't have an account? <Link to="/">Sign up</Link>
               </div>
             </form>
           </div>

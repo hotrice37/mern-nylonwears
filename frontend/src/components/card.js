@@ -6,6 +6,8 @@ import axios from 'axios';
 import logger from 'use-reducer-logger';
 import Rating from './rating';
 import { Store } from '../store';
+import LoadingBox from './loadingbox';
+import MessageBox from './messagebox';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,7 +32,7 @@ const Card = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get('/product/all');
+        const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message });
@@ -115,9 +117,9 @@ const Card = () => {
         className="shop row products justify-content-center px-lg-5 mx-lg-5"
       >
         {loading ? (
-          <div>Loading...</div>
+          <LoadingBox />
         ) : error ? (
-          <div>{error}</div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           products.map(renderCard)
         )}
