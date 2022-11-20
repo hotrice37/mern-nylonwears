@@ -11,6 +11,7 @@ const Navbar = () => {
   const signoutHandler = () => {
     ctxDispatch({ type: 'USER_SIGNOUT' });
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('shippingAddress');
   };
 
   return (
@@ -59,15 +60,14 @@ const Navbar = () => {
             <div className="d-flex gap-4 navbar-expand">
               <div className="navbar-nav me-auto">
                 <div className="nav-item dropdown">
-                  <a
-                    href="#"
+                  <span
                     className="nav-link dropdown-toggle text-white"
                     role="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
                     Products
-                  </a>
+                  </span>
                   <ul className="dropdown-menu">
                     <li>
                       <Link className="dropdown-item" href="#products">

@@ -15,6 +15,7 @@ import Productdetails from './pages/productdetails';
 import NotFoundPage from './pages/404';
 import { StoreProvider } from './store';
 import SignIn from './pages/login';
+import ShippingAddress from './pages/shippingaddress';
 import './components/css/index.css';
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="contactus" element={<ContactUs />} />
             <Route path="/product/:slug" element={<Productdetails />}></Route>
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/shipping" element={<ShippingAddress />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
