@@ -17,6 +17,7 @@ import { StoreProvider } from './store';
 import SignIn from './pages/login';
 import ShippingAddress from './pages/shippingaddress';
 import './components/css/index.css';
+import SignUp from './pages/signup';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="contactus" element={<ContactUs />} />
             <Route path="/product/:slug" element={<Productdetails />}></Route>
             <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/shipping" element={<ShippingAddress />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
