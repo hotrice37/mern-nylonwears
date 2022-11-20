@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import '../components/css/productdetails.css';
 import LoadingBox from '../components/loadingbox';
 import MessageBox from '../components/messagebox';
 import Rating from '../components/rating';
+import { Store } from '../store';
 import getError from '../utils';
 
 const reducer = (state, action) => {
@@ -41,6 +42,14 @@ function Productdetails() {
     };
     fetchData();
   }, [slug]);
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const addToCartHandler = () => {
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity: 1 },
+    });
+  };
 
   return loading ? (
     <LoadingBox />
@@ -97,7 +106,11 @@ function Productdetails() {
                 {product.stock > 0 && (
                   <li class="list-group-item bg-dark text-white">
                     <div className="d-grid">
-                      <button type="button" class="orange btn text-white">
+                      <button
+                        onClick={addToCartHandler}
+                        type="button"
+                        class="orange btn text-white"
+                      >
                         Add to Cart
                       </button>
                     </div>
