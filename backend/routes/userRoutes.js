@@ -32,7 +32,7 @@ userRouter.post(
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, 8),
+      password: bcrypt.hashSync(req.body.password),
     });
     const user = await newUser.save();
     res.send({
