@@ -18,6 +18,7 @@ import SignIn from './pages/login';
 import ShippingAddress from './pages/shippingaddress';
 import './components/css/index.css';
 import SignUp from './pages/signup';
+import Search from './pages/search';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="cart" element={<CartPage />} />
+            <Route path="search" element={<Search />} />
             <Route path="contactus" element={<ContactUs />} />
             <Route path="/product/:slug" element={<Productdetails />}></Route>
             <Route path="/signin" element={<SignIn />} />

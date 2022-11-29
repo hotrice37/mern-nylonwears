@@ -95,7 +95,6 @@ function SignUp() {
               <span></span>
               <label className="text-white">CONFIRM PASSWORD</label>
             </div>
-            <div className="pass text-end text-white">Forgot Password?</div>
             <input className="mt-4 text-white" type="submit" value="Sign Up" />
             <div className="signup_link mt-4 text-white">
               Already have an account?{' '}

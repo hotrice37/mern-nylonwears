@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import './css/navbar.css';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Store } from '../store';
+import getError from '../utils';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import SearchBox from './searchbox';
 
 const Navbar = () => {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -13,6 +17,19 @@ const Navbar = () => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddress');
   };
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await axios.get('/api/products/categories');
+        setCategories(data);
+      } catch (err) {
+        toast.error(getError(err));
+      }
+    };
+    fetchCategories();
+  }, []);
 
   return (
     // Navigation Bar Start
@@ -36,23 +53,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-expand-lg">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <form className="d-flex" role="search">
-              <input
-                id="searchinput"
-                className={`searchinput form-control me-2`}
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button
-                id="search"
-                className={`btn search`}
-                type="submit"
-                aria-label="Search-button"
-              >
-                <i className="bi bi-search"></i>
-              </button>
-            </form>
+            <SearchBox />
           </div>
         </div>
         <div>
@@ -70,33 +71,20 @@ const Navbar = () => {
                   </span>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link className="dropdown-item" href="#products">
+                      <Link className="dropdown-item" to="/search">
                         All Products
                       </Link>
                     </li>
-                    <li>
-                      <Link className="dropdown-item" href="#">
-                        Men
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="#">
-                        Women
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="#">
-                        Kids
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider" />
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="#">
-                        Something else here
-                      </Link>
-                    </li>
+                    {categories.map((category) => (
+                      <li key={category}>
+                        <Link
+                          className="dropdown-item"
+                          to={`/search?category=${category}`}
+                        >
+                          {category}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
