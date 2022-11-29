@@ -58,7 +58,7 @@ const RenderCard = (props) => {
                   </div> */}
         </div>
       </div>
-      <div className={`card-footer d-flex flex-column`}>
+      <div className={`card-footer border-0 d-flex flex-column`}>
         <div>
           {carddata.stock === 0 ? (
             <button
