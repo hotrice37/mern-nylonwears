@@ -12,6 +12,7 @@ function ShippingAddress() {
     cart: { shippingAddress },
   } = state;
   const [fullName, setFullName] = useState(shippingAddress.fullName || '');
+  const [number, setNumber] = useState(shippingAddress.number || '');
   const [address, setAddress] = useState(shippingAddress.address || '');
   const [city, setCity] = useState(shippingAddress.city || '');
   useEffect(() => {
@@ -21,11 +22,11 @@ function ShippingAddress() {
     e.preventDefault();
     ctxDispatch({
       type: 'SAVE_SHIPPING_ADDRESS',
-      payload: { fullName, address, city },
+      payload: { fullName, number, address, city },
     });
     localStorage.setItem(
       'shippingAddress',
-      JSON.stringify({ fullName, address, city })
+      JSON.stringify({ fullName, number, address, city })
     );
     navigate('/payment');
   };
@@ -49,6 +50,17 @@ function ShippingAddress() {
               value={fullName}
               className="form-control"
               onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3" controlId="number">
+            <label for="number" className="form-label">
+              Phone Number
+            </label>
+            <input
+              value={number}
+              className="form-control"
+              onChange={(e) => setNumber(e.target.value)}
               required
             />
           </div>

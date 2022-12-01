@@ -19,6 +19,7 @@ import ShippingAddress from './pages/shippingaddress';
 import './components/css/index.css';
 import SignUp from './pages/signup';
 import Search from './pages/search';
+import PaymentMethod from './pages/paymentmethod';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/shipping" element={<ShippingAddress />} />
+            <Route path="/payment" element={<PaymentMethod />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
