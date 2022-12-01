@@ -11,7 +11,7 @@ const PaymentMethod = () => {
     cart: { shippingAddress, paymentMethod },
   } = state;
   const [paymentMethodName, setPaymentMethod] = useState(
-    paymentMethod || 'cod'
+    paymentMethod || 'CashOnDelivery'
   );
   useEffect(() => {
     if (!shippingAddress.address) {
@@ -39,13 +39,13 @@ const PaymentMethod = () => {
             <input
               class="form-check-input"
               type="radio"
-              name="cod"
-              id="cod"
-              value="cod"
-              checked={paymentMethodName === 'cod'}
+              name="CashOnDelivery"
+              id="CashOnDelivery"
+              value="CashOnDelivery"
+              checked={paymentMethodName === 'CashOnDelivery'}
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
-            <label class="form-check-label" for="cod">
+            <label class="form-check-label" for="CashOnDelivery">
               Cash On Delivery
             </label>
           </div>

@@ -20,6 +20,7 @@ import './components/css/index.css';
 import SignUp from './pages/signup';
 import Search from './pages/search';
 import PaymentMethod from './pages/paymentmethod';
+import PlaceOrder from './pages/placeorder';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             <Route path="/product/:slug" element={<Productdetails />}></Route>
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/placeorder" element={<PlaceOrder />} />
             <Route path="/shipping" element={<ShippingAddress />} />
             <Route path="/payment" element={<PaymentMethod />} />
             <Route path="*" element={<NotFoundPage />} />
