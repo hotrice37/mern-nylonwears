@@ -1,11 +1,33 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link, useNavigate } from 'react-router-dom';
 import CheckoutSteps from '../components/checkoutSteps';
 import { Store } from '../store';
+import getError from '../utils';
+import { toast } from 'react-toastify';
+import Axios from 'axios';
+import LoadingBox from '../components/loadingbox';
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'CREATE_REQUEST':
+      return { ...state, loading: true };
+    case 'CREATE_SUCCESS':
+      return { ...state, loading: false };
+    case 'CREATE_FAIL':
+      return { ...state, loading: false };
+    default:
+      return state;
+  }
+};
 
 const PlaceOrder = () => {
   const navigate = useNavigate();
+
+  const [{ loading }, dispatch] = useReducer(reducer, {
+    loading: false,
+  });
+
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo, cart } = state;
 
@@ -17,7 +39,35 @@ const PlaceOrder = () => {
   cart.taxPrice = round2(0.13 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  const placeOrderHandler = async () => {};
+  const placeOrderHandler = async () => {
+    try {
+      dispatch({ type: 'CREATE_REQUEST' });
+      const { data } = await Axios.post(
+        '/api/orders',
+        {
+          orderItems: cart.cartItems,
+          shippingAddress: cart.shippingAddress,
+          paymentMethod: cart.paymentMethod,
+          itemsPrice: cart.itemsPrice,
+          shippingPrice: cart.shippingPrice,
+          taxPrice: cart.taxPrice,
+          totalPrice: cart.totalPrice,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+      ctxDispatch({ type: 'CART_CLEAR' });
+      dispatch({ type: 'CREATE_SUCCESS' });
+      localStorage.removeItem('cartItems');
+      navigate(`/order/${data.order._id}`);
+    } catch (err) {
+      dispatch({ type: 'CREATE_FAIL' });
+      toast.error(getError(err));
+    }
+  };
   useEffect(() => {
     if (!cart.paymentMethod) {
       navigate('/payment');
@@ -72,9 +122,9 @@ const PlaceOrder = () => {
             <div className="card mb-3 bg-dark">
               <div className="card-body">
                 <div className="card-title">Items</div>
-                <ul class="list-group list-group-flush mb-3">
+                <ul className="list-group list-group-flush mb-3">
                   {cart.cartItems.map((item) => (
-                    <li class="list-group-item bg-dark" key={item._id}>
+                    <li className="list-group-item bg-dark" key={item._id}>
                       <div className="row align-items-center">
                         <div className="col-md-6">
                           <img
@@ -160,6 +210,7 @@ const PlaceOrder = () => {
                         Place Order
                       </button>
                     </div>
+                    {loading && <LoadingBox />}
                   </li>
                 </ul>
               </div>
