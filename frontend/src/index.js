@@ -21,6 +21,7 @@ import SignUp from './pages/signup';
 import Search from './pages/search';
 import PaymentMethod from './pages/paymentmethod';
 import PlaceOrder from './pages/placeorder';
+import Order from './pages/order';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/placeorder" element={<PlaceOrder />} />
+            <Route path="/order/:id" element={<Order />} />
             <Route path="/shipping" element={<ShippingAddress />} />
             <Route path="/payment" element={<PaymentMethod />} />
             <Route path="*" element={<NotFoundPage />} />
