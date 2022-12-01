@@ -22,6 +22,7 @@ import Search from './pages/search';
 import PaymentMethod from './pages/paymentmethod';
 import PlaceOrder from './pages/placeorder';
 import Order from './pages/order';
+import OrderHistory from './pages/orderhistory';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/placeorder" element={<PlaceOrder />} />
             <Route path="/order/:id" element={<Order />} />
+            <Route path="/orderhistory" element={<OrderHistory />} />
             <Route path="/shipping" element={<ShippingAddress />} />
             <Route path="/payment" element={<PaymentMethod />} />
             <Route path="*" element={<NotFoundPage />} />
