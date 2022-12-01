@@ -52,7 +52,7 @@ function SignUp() {
         <title>Sign Up</title>
       </Helmet>
       <div className="col-lg-6 bg-dark rounded">
-        <div className="login_screen m-3 mt-5">
+        <div className="login_screen m-3 mt-5 pb-3">
           <h1 className="text-white">SIGN UP</h1>
           <form method="post" onSubmit={submitHandler}>
             <div className={`txt_field`}>

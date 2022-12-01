@@ -45,7 +45,7 @@ function SignIn() {
         <title>Log In</title>
       </Helmet>
       <div className="col-lg-6 bg-dark rounded">
-        <div className="login_screen m-3 mt-5">
+        <div className="login_screen m-3 mt-5 pb-3">
           <h1 className="text-white">WEAR THE BEST CLOTHES</h1>
           <form method="post" onSubmit={submitHandler}>
             <div className={`txt_field`}>
@@ -68,7 +68,7 @@ function SignIn() {
               <span></span>
               <label className="text-white">PASSWORD</label>
             </div>
-            <div className="pass text-end text-white">Forgot Password?</div>
+            {/* <div className="pass text-end text-white">Forgot Password?</div> */}
             <input className="mt-4 text-white" type="submit" value="Login" />
             <div className="signup_link mt-4 text-white">
               Don't have an account?{' '}

@@ -17,6 +17,7 @@ const Navbar = () => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddress');
     localStorage.removeItem('paymentMethod');
+    window.location.href = '/signin';
   };
   const [categories, setCategories] = useState([]);
 
